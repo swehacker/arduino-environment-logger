@@ -1,4 +1,3 @@
-#include <DHT.h>
 
 /**
  * temp.logger:
@@ -9,47 +8,58 @@
  * e.g: 36.00,22.00,24.86
  */
 
+#include <DHT.h>
+#include <aREST.h>
+
 #define DHTPIN 2
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
-        
+aREST rest = aREST();
+
+int temperature;
+int humidity;
+int heatindex;
+int light;
+
 void setup() {  
   Serial.begin(9600);
+  
+  // Expose variables to rest
+  rest.variable("temperature", &temperature);
+  rest.variable("humidity", &humidity);
+  rest.variable("heatindex", &heatindex);
+  rest.variable("light", &light);
+  // Set devicename and id
+  rest.set_id("1");
+  rest.set_name("temperature_station");
+  
+  // Setup DHT
   dht.begin();
 }
 
 void loop() {  
-}
-
-void updateClient() {
- float h = dht.readHumidity();
+  humidity = (int)dht.readHumidity();
   // Read temperature as Celsius
-  float t = dht.readTemperature();
+  temperature = (int)dht.readTemperature();
   // Read temperature as Fahrenheit
-  float f = dht.readTemperature(true);
+  float temp_f = dht.readTemperature(true);
   
   // Check if any reads failed and exit early (to try again).
-  if (isnan(h) || isnan(t) || isnan(f)) {
+  if (isnan(humidity) || isnan(temperature) || isnan(temp_f)) {
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
   
   // Compute heat index
   // Must send in temp in Fahrenheit!
-  float hi = dht.computeHeatIndex(f, h);
-  Serial.print((float)h, 2);
-  Serial.print(",");
-  Serial.print((float)t, 2);
-  Serial.print(",");
-  Serial.println((hi-32)/1.8);
+  heatindex = dht.computeHeatIndex(temp_f, humidity);
+  
+  float light_reading = analogRead(A0);
+  light = (int)(light_reading/1024*100);
+  
+  rest.handle(Serial);
+  
+  delay(100);
 }
 
-void serialEvent() {
-  while (Serial.available()) {
-    char inChar = (char)Serial.read();
-    if (inChar == '\n') {
-      updateClient();
-    } 
-  }
-}
