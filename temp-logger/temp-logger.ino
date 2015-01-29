@@ -23,7 +23,7 @@ int heatindex;
 int light;
 
 void setup() {  
-  Serial.begin(9600);
+  Serial.begin(115200);
   
   // Expose variables to rest
   rest.variable("temperature", &temperature);
