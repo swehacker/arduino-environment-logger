@@ -1,39 +1,48 @@
-#include <dht11.h>
+#include <DHT.h>
 
-dht11 DHT11;
+#define DHTPIN 2
+#define DHTTYPE DHT11
 
-#define DHT11PIN 7
+DHT dht(DHTPIN, DHTTYPE);
         
-void setup() {
+void setup() {  
   Serial.begin(9600);
-  Serial.println("DHT11 Test");
+  dht.begin();
 }
 
-void loop() {
-  Serial.println("\n");
-  int chk = DHT11.read(DHT11PIN);
-  Serial.print("Read sensor: ");
+void loop() {  
+}
+
+void updateClient() {
+ float h = dht.readHumidity();
+  // Read temperature as Celsius
+  float t = dht.readTemperature();
+  // Read temperature as Fahrenheit
+  float f = dht.readTemperature(true);
   
-  switch (chk) {
-    case DHTLIB_OK:
-      Serial.println("OK");
-      break;
-    case DHTLIB_ERROR_CHECKSUM:
-      Serial.println("Checksum error");
-      break;
-    case DHTLIB_ERROR_TIMEOUT:
-      Serial.println("Timeout error");
-      break;
-    default:
-      Serial.println("Unknown error");
-      break;
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t) || isnan(f)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
   }
   
-  Serial.print("Humidity (%): ");
-  Serial.println((float)DHT11.humidity, DHT11PIN);
-  Serial.print("Temperature: ");
-  Serial.println((float)DHT11.temperature, DHT11PIN);
+  // Compute heat index
+  // Must send in temp in Fahrenheit!
+  float hi = dht.computeHeatIndex(f, h);
   
-  delay(2000);
+  Serial.print("Humidity (%):\t");
+  Serial.println((float)h, 2);
+  Serial.print("Temperature:\t");
+  Serial.println((float)t, 2);
+  Serial.print("Heat index:\t");
+  Serial.println(hi);
 }
 
+void serialEvent() {
+  while (Serial.available()) {
+    char inChar = (char)Serial.read();
+    if (inChar == '\n') {
+      updateClient();
+    } 
+  }
+}
