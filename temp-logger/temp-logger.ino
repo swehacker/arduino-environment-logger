@@ -1,5 +1,14 @@
 #include <DHT.h>
 
+/**
+ * temp.logger:
+ *
+ * When the arduino receives a newline character it will respond with temperature, humidity and heat index.
+ * 
+ * <temperature in celsius>,<humidity in percent>,<heat index in celsius>\n
+ * e.g: 36.00,22.00,24.86
+ */
+
 #define DHTPIN 2
 #define DHTTYPE DHT11
 
@@ -29,13 +38,11 @@ void updateClient() {
   // Compute heat index
   // Must send in temp in Fahrenheit!
   float hi = dht.computeHeatIndex(f, h);
-  
-  Serial.print("Humidity (%):\t");
-  Serial.println((float)h, 2);
-  Serial.print("Temperature:\t");
-  Serial.println((float)t, 2);
-  Serial.print("Heat index:\t");
-  Serial.println(hi);
+  Serial.print((float)h, 2);
+  Serial.print(",");
+  Serial.print((float)t, 2);
+  Serial.print(",");
+  Serial.println((hi-32)/1.8);
 }
 
 void serialEvent() {
