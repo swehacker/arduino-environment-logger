@@ -11,7 +11,8 @@
 #include <DHT.h>
 #include <aREST.h>
 
-#define DHTPIN 2
+#define LIGHTPIN A0
+#define DHTPIN 7
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -55,7 +56,7 @@ void loop() {
   // Must send in temp in Fahrenheit!
   heatindex = dht.computeHeatIndex(temp_f, humidity);
   
-  float light_reading = analogRead(A0);
+  float light_reading = analogRead(LIGHTPIN);
   light = (int)(light_reading/1024*100);
   
   rest.handle(Serial);
