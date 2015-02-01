@@ -1,16 +1,13 @@
 // Modules
 var express = require('express');
 var app = express();
+// View engine
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
 
 // Define port
 var port = 3000;
 var baudrate = 115200;
-
-// View engine
-app.set('view engine', 'jade');
-
-// Set public folder
-app.use(express.static(__dirname + '/public'));
 
 var serialport = require("serialport");
 var SerialPort = serialport.SerialPort;

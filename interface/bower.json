@@ -1,0 +1,21 @@
+{
+  "name": "temp-logger",
+  "version": "0.0.1",
+  "homepage": "https://github.com/swehacker/temp-logger",
+  "authors": [
+    "Patrik Falk <patrik@patrikfalk.com>"
+  ],
+  "description": "Logs temperature, humidity, and light values and displays it on the web",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

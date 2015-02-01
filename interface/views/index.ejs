@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org">
+
+<head>
+  <title>as</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+
+<body ng-app>
+  <div class="container">
+  <div class="page-header">
+  <h1>Environment Controller!</h1>
+</div>
+  <div class="container" style="height: 480px;">
+    <h1>"Weather" Station</h1>
+    <div class="row voffset">
+      <div class="col-md-6">
+        <div id="temperatureDisplay" class="display">Temperature: </div>
+      </div>
+      <div class="col-md-6">
+        <div id="humidityDisplay" class="display">Humidity: </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div id="lightDisplay" class="display">Light level: </div>
+      </div>
+      <div class="col-md-6">
+        <div id="status" class="status">Station Offline</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="center well">
+      <p><small>temp-logger <a class="pull-right" href="https://github.com/swehacker/temp-logger">temp-logger</a></small></p>
+  </footer>
+</div>
+  <script type="text/javascript" src="/libs/angular/angular.min.js"></script>
+  <script type="text/javascript" src="/log/log.client.module.js"></script>
+  <script type="text/javascript" src="/js/application.js"></script>
+  <script type="text/javascript" src="/js/interface.js"></script>
+</body>
+
+</html>
