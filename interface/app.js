@@ -63,14 +63,8 @@ if ( portName !== undefined) {
 }
 
 // Serve interface
-app.get('/', function(req, res){
-    res.render('index');
-});
-
 app.get('/device', function(req, res) {
   res.json(latest);
 });
-
-// Start server
 app.listen(port);
 console.log("Listening for http request on port " + port);
