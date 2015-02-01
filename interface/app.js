@@ -11,7 +11,7 @@ var baudrate = 115200;
 
 var serialport = require("serialport");
 var SerialPort = serialport.SerialPort;
-var latest = "";
+var latest = JSON.parse("{\"id\": 1, \"heatindex\": 20, \"temperature\": 22, \"humidity\": 32, \"light\": 65}");
 
 var myPort;
 
