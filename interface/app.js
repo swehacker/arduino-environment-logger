@@ -24,7 +24,6 @@ function showPortOpen() {
 
 function saveLatestData(data) {
   latest = data;
-  console.log(data);
 }
 
 function showPortClose() {
