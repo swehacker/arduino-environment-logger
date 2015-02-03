@@ -1,12 +1,32 @@
 # Environment logger using Arduino, NodeJS and Mongodb
+Logs temperature, humidity, heatindex and light level to a web application running node.js and mongodb.
 
-## Components
+## Install and run
+### Pre-req.
+NodeJS
+
+Install the dependencies
+```javascript
+// When standing in the interface catalogue
+npm install
+```
+You can list all the serial (usb) ports in your computer
+```javascript
+node app.js
+```
+Start the application
+```javascript
+node app.js <path to port>
+```
+
+## Project setup
+
+### Components
 Arduino Uno
 DHT11 sensor
 10K Resistor
 Light Resistor
 
-## Project setup
 ### Libraries
 #### DHT
 Clone the following libs into Arduino/libraries catalogue
