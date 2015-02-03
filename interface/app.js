@@ -1,8 +1,6 @@
 // Modules
 var express = require('express');
 var app = express();
-// View engine
-app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 // Define port
