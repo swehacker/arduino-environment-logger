@@ -18,18 +18,28 @@
 DHT dht(DHTPIN, DHTTYPE);
 aREST rest = aREST();
 
+int temperature;
+int humidity;
+int heatindex;
+float light;
+
 void setup() {
   Serial.begin(115200);
+
+  // Expose variables to rest
+  rest.variable("temperature", &temperature);
+  rest.variable("humidity", &humidity);
+  rest.variable("heatindex", &heatindex);
+  rest.variable("light", &light);
+  // Set devicename and id
+  rest.set_id("1");
+  rest.set_name("temperature_station");
 
   // Setup DHT
   dht.begin();
 }
 
 void loop() {
-  int temperature;
-  int humidity;
-  int heatindex;
-
   humidity = (int)dht.readHumidity();
   // Read temperature as Celsius
   temperature = (int)dht.readTemperature();
@@ -50,9 +60,9 @@ void loop() {
   // Volt = 5V, R = 10k
   // Typical LDR: Ea= 10 lux, Ra = 10 k, sens = 0.8 (check datasheet)
   float light_reading = analogRead(LIGHTPIN);
-  float vOut = 5 * light_reading/1024;
+  float vOut = 5 * light_reading/1023.0;
   float rLDR = 10.0 * (5.0 / vOut - 1.0);
-  float light = 16.0 * pow(10.0 / rLDR, 1.0/0.8)
+  float light = 10.0 * pow(10.0 / rLDR, 1.0/0.8)
 
   Serial.print("{\"id\": 1,\"temperature\": ");
   Serial.print(temperature);
@@ -66,4 +76,3 @@ void loop() {
 
   delay(1000);
 }
-
