@@ -32,8 +32,8 @@ function showError(error) {
 }
 
 function setupSerial() {
-  console.log("Setting up " + portName + " with baudrate " + baudrate);
-  myPort = new SerialPort(portName, {
+  console.log("Setting up " + process.argv[2] + " with baudrate " + baudrate);
+  myPort = new SerialPort(process.argv[2], {
    baudRate: baudrate,
    // look for return and newline at the end of each data packet:
    parser: serialport.parsers.readline("\r\n")
@@ -45,8 +45,7 @@ function setupSerial() {
   myPort.on('error', showError);
 }
 
-portName = process.argv[2];
-if ( portName !== undefined) {
+if ( process.argv[2] !== undefined) {
   setupSerial();
 } else {
   console.log("You did not provide a serial port to connect to!");
