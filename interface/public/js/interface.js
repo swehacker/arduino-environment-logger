@@ -16,7 +16,9 @@ $(document).ready(function() {
     $.getJSON('/device', function(data) {
       data = JSON.parse(data);
 
-      $("#lightDisplay").html("Light level: " + data.light + "%");
+      $("#lightDisplay").html("Light level: " + data.light + " lux");
+
+      $("#heatindexDisplay").html("Heatindex: " + data.heatindex + " °C");
 
       $("#status").html("Station Online");
       $("#status").css("color", "green");

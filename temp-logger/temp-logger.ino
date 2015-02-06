@@ -45,7 +45,8 @@ void loop() {
 
   // Compute heat index
   // Must send in temp in Fahrenheit!
-  heatindex = dht.computeHeatIndex(temp_f, humidity);
+  float heat_f = dht.computeHeatIndex(temp_f, humidity);
+  heatindex = (heat_f - 32) / 1.8000;
 
   // Calculate the lux (amount of ligth) (assuming a typical LDR)
   // Volt = 5V, R = 10k
