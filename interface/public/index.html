@@ -2,7 +2,7 @@
 <html ng-app="temp-logger">
 
 <head>
-  <title>Temperature logger</title>
+  <title>Arduino Environment Logger</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 </head>
@@ -10,30 +10,30 @@
 <body>
   <div class="container" ng-controller="TempController">
     <div class="page-header">
-      <div class="col-md-6">
-        <h1>Temperature logger</h1>
+      <div class="col-sm-8">
+        <h1>Arduino Environment Logger</h1>
       </div>
-      <div class="col-md-6">
+      <div class="col-sm-4">
         <h1>
           <span id="status" class="status">Station Offline</span>
         </h1>
       </div>
     </div>
-    <div class="container" style="height: 480px;">
+    <div class="container">
       <div class="row voffset">
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <canvas id="temperatureGauge" width="300" height="300"></canvas>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <canvas id="heatindexGauge" width="300" height="300"></canvas>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <canvas id="humidityGauge" width="300" height="300"></canvas>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <canvas id="lightGauge" width="300" height="300"></canvas>
         </div>
       </div>
@@ -41,7 +41,8 @@
   </div>
   <footer class="center well">
     <p>
-      <small>temp-logger <a class="pull-right" href="https://github.com/swehacker/temp-logger">temp-logger</a>
+      <small>
+        Arduino Environment Logger <a class="pull-right" href="https://github.com/swehacker/arduino-environment-logger">github.com: arduino-environment-logger</a>
       </small>
     </p>
   </footer>
