@@ -23,14 +23,15 @@ node app.js <path to port>
 ![alt text](https://github.com/swehacker/arduino-environment-logger/raw/master/schema/Breadboard.png "Breadboard Setup")
 
 ### Components
-Arduino Uno
-DHT11 sensor
-10K Resistor
-Light Resistor
+* Arduino Uno
+* DHT11 sensor
+* 10K Resistor
+* Light Resistor
 
 ### Libraries
-#### DHT
-Clone the following libs into Arduino/libraries catalogue
-git clone git@github.com:marcoschwartz/aREST.git
+Copy the following libs into Arduino/libraries catalogue
 
+#### DHT
+```
 https://github.com/RobTillaart/Arduino/tree/master/libraries/DHTlib
+```
