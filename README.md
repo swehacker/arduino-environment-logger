@@ -20,7 +20,7 @@ node app.js <path to port>
 ```
 
 ## Project setup
-![alt text](https://github.com/swehacker/arduino-temp-logger/raw/master/schema/Breadboard.png "Breadboard Setup")
+![alt text](https://github.com/swehacker/arduino-environment-logger/raw/master/schema/Breadboard.png "Breadboard Setup")
 
 ### Components
 Arduino Uno
