@@ -21,19 +21,10 @@ aREST rest = aREST();
 int temperature;
 int humidity;
 int heatindex;
-float light;
+float lux;
 
 void setup() {
   Serial.begin(115200);
-
-  // Expose variables to rest
-  rest.variable("temperature", &temperature);
-  rest.variable("humidity", &humidity);
-  rest.variable("heatindex", &heatindex);
-  rest.variable("light", &light);
-  // Set devicename and id
-  rest.set_id("1");
-  rest.set_name("temperature_station");
 
   // Setup DHT
   dht.begin();
@@ -54,15 +45,23 @@ void loop() {
 
   // Compute heat index
   // Must send in temp in Fahrenheit!
-  heatindex = dht.computeHeatIndex(temp_f, humidity);
+  float heat_f = dht.computeHeatIndex(temp_f, humidity);
+  heatindex = (heat_f - 32) / 1.8000;
 
   // Calculate the lux (amount of ligth) (assuming a typical LDR)
   // Volt = 5V, R = 10k
   // Typical LDR: Ea= 10 lux, Ra = 10 k, sens = 0.8 (check datasheet)
-  float light_reading = analogRead(LIGHTPIN);
-  float vOut = 5 * light_reading/1023.0;
-  float rLDR = 10.0 * (5.0 / vOut - 1.0);
-  float light = 10.0 * pow(10.0 / rLDR, 1.0/0.8)
+   // 1. Get the analog reading. Arduino Uno, Mega, between 0 and 1023
+  int analogLDR = analogRead(LIGHTPIN);
+  
+  // 2. Get the output voltage, if Vdd=5V 
+  float VOut = 5.0 * analogLDR / 1023.0;
+  
+  // 3. Get the LDR resistence (kohm)
+  float resisLDR = 10.0 * (5.0 / VOut - 1.0);
+ 
+  // 4. Get the amount of light (lux) assuming a typical LDR
+  lux = 10.0 * pow(10.0 / resisLDR, 1.0 / 0.8);
 
   Serial.print("{\"id\": 1,\"temperature\": ");
   Serial.print(temperature);
@@ -71,8 +70,9 @@ void loop() {
   Serial.print(",\"heatindex\": ");
   Serial.print(heatindex);
   Serial.print(",\"light\": ");
-  Serial.print(light);
+  Serial.print(lux);
   Serial.println("}");
 
   delay(1000);
 }
+

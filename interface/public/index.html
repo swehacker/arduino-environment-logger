@@ -10,37 +10,44 @@
 <body>
   <div class="container" ng-controller="TempController">
     <div class="page-header">
-      <h1>Temperature logger</h1>
+      <div class="col-md-6">
+        <h1>Temperature logger</h1>
+      </div>
+      <div class="col-md-6">
+        <h1>
+          <span id="status" class="status">Station Offline</span>
+        </h1>
+      </div>
     </div>
     <div class="container" style="height: 480px;">
       <div class="row voffset">
         <div class="col-md-6">
-          <div id="temperatureDisplay" class="display">Temperature: </div>
+          <canvas id="temperatureGauge" width="300" height="300"></canvas>
         </div>
         <div class="col-md-6">
-          <div id="humidityDisplay" class="display">Humidity: </div>
+          <canvas id="heatindexGauge" width="300" height="300"></canvas>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-6">
-          <div id="lightDisplay" class="display">Light level: </div>
+          <canvas id="humidityGauge" width="300" height="300"></canvas>
         </div>
         <div class="col-md-6">
-          <div id="status" class="status">Station Offline</div>
+          <canvas id="lightGauge" width="300" height="300"></canvas>
         </div>
       </div>
     </div>
-
-    <footer class="center well">
-      <p>
-        <small>temp-logger <a class="pull-right" href="https://github.com/swehacker/temp-logger">temp-logger</a>
-        </small>
-      </p>
-    </footer>
-
-    <script type="text/javascript" src="/lib/angular/angular.min.js"></script>
-    <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/interface.js"></script>
+  </div>
+  <footer class="center well">
+    <p>
+      <small>temp-logger <a class="pull-right" href="https://github.com/swehacker/temp-logger">temp-logger</a>
+      </small>
+    </p>
+  </footer>
+  <script type="text/javascript" src="/lib/angular/angular.min.js"></script>
+  <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/jquery.gauge/jquery.gauge.min.js"></script>
+  <script type="text/javascript" src="/js/interface.js"></script>
 </body>
-
 </html>
