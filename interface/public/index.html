@@ -22,19 +22,19 @@
     <div class="container" style="height: 480px;">
       <div class="row voffset">
         <div class="col-md-6">
-          <div id="temperatureDisplay" class="display">Temperature: </div>
+          <canvas id="temperatureGauge" width="300" height="300"></canvas>
         </div>
         <div class="col-md-6">
-          <div id="humidityDisplay" class="display">Humidity: </div>
+          <canvas id="heatindexGauge" width="300" height="300"></canvas>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6">
-          <div id="heatindexDisplay" class="display">Heatindex: </div>
+          <canvas id="humidityGauge" width="300" height="300"></canvas>
         </div>
         <div class="col-md-6">
-          <div id="lightDisplay" class="display">Light level: </div>
+          <canvas id="lightGauge" width="300" height="300"></canvas>
         </div>
       </div>
     </div>
@@ -45,10 +45,9 @@
       </small>
     </p>
   </footer>
-
   <script type="text/javascript" src="/lib/angular/angular.min.js"></script>
   <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/jquery.gauge/jquery.gauge.min.js"></script>
   <script type="text/javascript" src="/js/interface.js"></script>
 </body>
-
 </html>
