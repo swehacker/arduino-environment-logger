@@ -2,22 +2,24 @@
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-// Modules
-var express = require('express');
+var express = require('express'),
+    Db = require('mongodb').Db,
+    Server = require('mongodb').Server,
+    Connection = require('mongodb').Connection,
+    serialport = require("serialport");
+
+var db = new Db('arduino-environment-logger', new Server('localhost', Connection.DEFAULT_PORT, {}), { native_parser: false});
+db.open(function(err, db) {
+  if (err) throw err;
+});
+
 var app = express();
 app.use(express.static(__dirname + '/public'));
-
-var mongoose = require('./config/mongoose');
-var db = mongoose();
-if (db.collectionExist("log")) {
-  db.createCollection("log", { capped : true, max : 5000 } );
-}
 
 // Define port
 var port = 3000;
 var baudrate = 115200;
 
-var serialport = require("serialport");
 var SerialPort = serialport.SerialPort;
 var myPort;
 
@@ -26,7 +28,18 @@ function showPortOpen() {
 }
 
 function saveLatestData(data) {
-  db.log.insert(JSON.parse(data));
+  try {
+    data = JSON.parse(data);
+    db.collection('log', function( err, collection ) {
+      if (err) console.log(err);
+
+      collection.insert(data, { safe: true }, function(err, result) {
+        if ( err ) console.log(err);
+      });
+    });
+  } catch (err) {
+    console.log("Read error: " + err);
+  }
 }
 
 function showPortClose() {
@@ -69,11 +82,19 @@ if ( process.argv[2] !== undefined) {
 
 // Serve interface
 app.get('/device', function(req, res) {
-  res.json(db.log.find().sort({$natural:-1}).limit(1));
+  db.collection('log', function(err, collection) {
+    collection.find({}).toArray(function(err, items) {
+      res.json(items[items.length -1]);
+    });
+  });
 });
 
 app.get('/device/legend', function(req, res) {
-  res.json(db.log.find());
+  db.collection('log', function(err, collection) {
+    collection.find({}).toArray(function(err, items) {
+      res.json(items);
+    });
+  });
 });
 
 app.listen(port);

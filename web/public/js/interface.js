@@ -48,16 +48,12 @@ $(document).ready(function() {
 
     // Update light level and status
     $.getJSON('/device', function(data) {
-      data = JSON.parse(data);
-
       $("#status").html("Station Online");
       $("#status").css("color", "green");
-
       lightGauge.value(Math.round(data.light));
       temperaturGauge.value(data.temperature);
       heatindexGauge.value(Math.round(data.heatindex));
       humidityGauge.value(Math.round(data.humidity));
-      //updateValue(data.light);
     }).fail(function() {
       $("#status").html("Station Offline");
       $("#status").css("color", "red");
