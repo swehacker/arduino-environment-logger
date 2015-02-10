@@ -3,6 +3,9 @@
 var config = require('./config'),
     serialport = require("serialport");
 
+var SerialPort = serialport.SerialPort;
+var myPort;
+
 function showPortOpen() {
   console.log('Port open. Data rate: ' + myPort.options.baudRate);
 }
@@ -16,9 +19,6 @@ function showError(error) {
 }
 
 exports.connect = function(port, onData) {
-  var SerialPort = serialport.SerialPort;
-  var myPort;
-
   console.log("Setting up " + port + " with baudrate " + config.baudrate);
   myPort = new SerialPort(port, {
    baudRate: config.baudrate,
