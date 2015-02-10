@@ -12,11 +12,11 @@ npm install
 ```
 You can list all the serial (usb) ports in your computer
 ```javascript
-node app.js
+node server.js
 ```
 Start the application
 ```javascript
-node app.js <path to port>
+node server.js <path to port>
 ```
 
 ## Project setup
