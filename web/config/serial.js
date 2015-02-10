@@ -35,6 +35,8 @@ exports.connect = function(port, onData) {
 exports.listPorts = function() {
   // list serial ports:
   serialport.list(function (err, ports) {
-    return ports
+    ports.forEach(function(port) {
+      console.log(port.comName);
+    });
   });
 };

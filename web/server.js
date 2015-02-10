@@ -18,10 +18,7 @@ if ( process.argv[2] !== undefined) {
   console.log("You did not provide a serial port to connect to!");
   console.log("  node server.js <port>\r\n");
   console.log("Available ports:");
-  serial.listPorts().forEach(function(port){
-    console.log(port.comName);
-  });
-
+  serial.listPorts();
   return;
 }
 
