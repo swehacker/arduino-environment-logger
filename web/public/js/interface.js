@@ -14,7 +14,7 @@ $(document).ready(function() {
   var lightGauge = new Gauge(document.getElementById("lightGauge"),{
     color: "#707070",
     bgcolor: "#AEAEAE",
-    unit: " lux",
+    unit: " %",
     title: "Light"
   });
 
