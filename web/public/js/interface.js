@@ -1,15 +1,5 @@
 'use strict';
 
-var firstApp = angular.module('temp-logger', []);
-firstApp.controller('TempController', function($scope) {
-  $scope.first = 'Some';
-  $scope.last = 'One';
-  $scope.heading = 'Message: ';
-  $scope.updateMessage = function() {
-    $scope.message = 'Hello ' + $scope.first + ' ' + $scope.last + '!';
-  };
-});
-
 $(document).ready(function() {
   var lightGauge = new Gauge(document.getElementById("lightGauge"),{
     color: "#707070",
